@@ -6,7 +6,7 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN npx next build
 # ===== 运行阶段 =====
-FROM node:18-bullseye AS runner
+FROM node:22-bullseye AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app/package.json ./
