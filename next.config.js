@@ -1,7 +1,9 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  reactCompiler: true,
-};
+// next.config.js（CommonJS）
+const isProd = process.env.GITHUB_ACTIONS === "true";
 
-module.exports = nextConfig;
+module.exports = {
+  output: "export",
+  images: { unoptimized: true },
+  basePath: isProd ? "/real-time-fund" : "",
+  assetPrefix: isProd ? "/real-time-fund/" : "",
+};
