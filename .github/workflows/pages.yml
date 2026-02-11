@@ -1,0 +1,38 @@
+name   名字: Deploy Next.js to Pages
+on:   :
+  push:   推动:
+    branches: [ "main" ]   branches: [ "main"   "main"   "main"   "main" ]
+  workflow_dispatch:
+
+permissions:   权限:
+  contents: read   内容:读
+  pages: write   页:写
+  id-token: write   id-token:写
+
+concurrency:   并发性:
+  group: "pages"   group: "pages"   "pages"   "pages"   "pages"
+  cancel-in-progress: true   cancel-in-progress:真
+
+jobs:   工作:
+  build:   构建:
+    runs-on: ubuntu-latest   上运行:ubuntu-latest
+    steps:   步骤:
+      - uses: actions/checkout@v4—用途：actions/checkout@v4
+      - uses: actions/setup-node@v4—用途：actions/setup-node@v4
+        with:   :
+          node-version: 18   节点信息:18
+      - run: npm ci
+      - run: npm run build   - run: NPM run build
+      - uses: actions/upload-pages-artifact@v3—用途：actions/upload-pages-artifact@v3
+        with:   :
+          path: ./out   路径:。/
+
+  deploy:   部署:
+    needs: build   需求:构建
+    runs-on: ubuntu-latest   上运行:ubuntu-latest
+    environment:   环境:
+      name: github-pages   名称:github-pages
+      url: ${{ steps.deployment.outputs.page_url }}Url: ${{steps.deployment.outputs.page_url}}
+    steps:   步骤:
+      - id: deployment   - id：部署
+        uses: actions/deploy-pages@v4用途:行动/ deploy-pages@v4
